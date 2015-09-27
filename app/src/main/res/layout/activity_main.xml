@@ -21,7 +21,9 @@
         android:id="@+id/button"
         android:layout_alignParentEnd="true"
         android:layout_below="@+id/textView"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:enabled="true"
+        android:onClick="startOnePlayer" />
 
     <TextView
         android:layout_width="wrap_content"
