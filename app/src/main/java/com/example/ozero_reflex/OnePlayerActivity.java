@@ -1,5 +1,6 @@
 package com.example.ozero_reflex;
 
+import android.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -12,6 +13,9 @@ public class OnePlayerActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_one_player);
+        //Bring up the dialog
+        DialogFragment reactionFragment = new ReactionInstructionDialog();
+        reactionFragment.show(getFragmentManager(), "instructions");
     }
 
     /*
