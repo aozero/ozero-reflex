@@ -20,6 +20,7 @@ public class OnePlayerActivity extends AppCompatActivity {
     private long startTime;
     private long reactionTime;
     private boolean timerStarted = false;
+    private boolean wasPaused = false;
 
     static final int minTime = 10;
     static final int maxTime = 2000;
@@ -36,7 +37,7 @@ public class OnePlayerActivity extends AppCompatActivity {
         @Override
         public void run() {
             startTime = System.currentTimeMillis();
-            text.setText("Now!");
+            text.setText(R.string.reaction_timer_now);
             timerStarted = true;
         }
     };
@@ -51,6 +52,22 @@ public class OnePlayerActivity extends AppCompatActivity {
         buildInstructionDialog();
         //Start the game/test
         initializeListener();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        timerH.removeCallbacks(timerR);
+        wasPaused = true;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (wasPaused) {
+            text.setText(R.string.reaction_timer_wait);
+            timerH.postDelayed(timerR, randomTime());
+        }
     }
 
     private void buildInstructionDialog() {
