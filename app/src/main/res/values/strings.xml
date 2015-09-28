@@ -15,4 +15,8 @@
     <string name="title_activity_one_player">Reaction Timer</string>
 
     <string name="reaction_timer_wait">Wait…</string>
+
+    <string name="one_player_dialog_message">When the text changes, tap as quickly as you can.
+        As you close this dialog, the timer will begin!</string>
+    <string name="one_player_dialog_ok">OK</string>
 </resources>

@@ -1,11 +1,12 @@
 package com.example.ozero_reflex;
 
-import android.app.DialogFragment;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.widget.TextView;
+//import android.view.Menu;
+//import android.view.MenuItem;
+
 
 public class OnePlayerActivity extends AppCompatActivity {
 
@@ -14,18 +15,28 @@ public class OnePlayerActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_one_player);
         //Bring up the dialog
-        DialogFragment reactionFragment = new ReactionInstructionDialog();
-        reactionFragment.show(getFragmentManager(), "instructions");
+        buildInstructionDialog();
     }
 
-    /*
-    @Override
+    private void buildInstructionDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(OnePlayerActivity.this);
+        builder.setCancelable(false);
+        builder.setMessage(R.string.one_player_dialog_message);
+        builder.setPositiveButton(R.string.one_player_dialog_ok, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        builder.show();
+    }
+
+    /*@Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_one_player, menu);
         return true;
     }
-    */
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -40,5 +51,5 @@ public class OnePlayerActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
-    }
+    }*/
 }
