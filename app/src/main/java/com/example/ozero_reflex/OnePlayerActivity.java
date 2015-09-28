@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.Random;
 //import android.view.Menu;
@@ -21,6 +20,7 @@ public class OnePlayerActivity extends AppCompatActivity {
     private long reactionTime;
     private boolean timerStarted = false;
     private boolean wasPaused = false;
+    private boolean messageDismissed = false;
 
     static final int minTime = 10;
     static final int maxTime = 2000;
@@ -48,8 +48,9 @@ public class OnePlayerActivity extends AppCompatActivity {
         setContentView(R.layout.activity_one_player);
         text = (TextView) findViewById(R.id.reactionText);
         button = (Button) findViewById(R.id.reactionButton);
-        //Bring up the dialog
-        buildInstructionDialog();
+        //Bring up the instructions
+        buildMessageDialog("When the text changes, tap as quickly as you can. " +
+                "As you close this dialog, the timer will begin!");
         //Start the game/test
         initializeListener();
     }
@@ -65,20 +66,30 @@ public class OnePlayerActivity extends AppCompatActivity {
     public void onResume() {
         super.onResume();
         if (wasPaused) {
-            text.setText(R.string.reaction_timer_wait);
-            timerH.postDelayed(timerR, randomTime());
+            if (messageDismissed) {
+                buildMessageDialog("When the text changes, tap as quickly as you can. " +
+                        "As you close this dialog, the timer will begin!");
+                text.setText(R.string.reaction_timer_wait);
+                //timerH.postDelayed(timerR, randomTime());
+                //wasPaused = false;
+            } else {
+                // Let things resume as they were
+            }
         }
     }
 
-    private void buildInstructionDialog() {
+    private void buildMessageDialog(String message) {
+        messageDismissed = false;
         AlertDialog.Builder builder = new AlertDialog.Builder(OnePlayerActivity.this);
         builder.setCancelable(false);
-        builder.setMessage(R.string.one_player_dialog_message);
+        builder.setMessage(message);
         builder.setPositiveButton(R.string.one_player_dialog_ok,
                 new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
+                messageDismissed = true;
+                text.setText(R.string.reaction_timer_wait);
                 timerH.postDelayed(timerR, randomTime());
             }
         });
@@ -99,15 +110,13 @@ public class OnePlayerActivity extends AppCompatActivity {
                 if (timerStarted) {
                     reactionTime = System.currentTimeMillis() - startTime;
                     timerStarted = false;
-                    Toast.makeText(OnePlayerActivity.this, "Your reaction time is "
-                                    + String.valueOf(reactionTime)+"ms", Toast.LENGTH_LONG).show();
+                    buildMessageDialog("Your reaction time is " + String.valueOf(reactionTime) + "ms");
                 }
                 else {
                     // TODO: Reset timer instead of just stopping it
                     timerH.removeCallbacks(timerR);
-                    text.setText("Timer stopped.");
-                    Toast.makeText(OnePlayerActivity.this, "Too early! Timer stopped.",
-                            Toast.LENGTH_SHORT).show();
+                    text.setText(R.string.reaction_timer_wait);
+                    buildMessageDialog("Wait for the text to change! Timer reset.");
                 }
             }
         });
