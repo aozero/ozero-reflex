@@ -19,6 +19,7 @@ public class OnePlayerActivity extends AppCompatActivity {
     private long startTime;
     private long reactionTime;
     private boolean timerStarted = false;
+    // To assist with onPause() and onResume()
     private boolean wasPaused = false;
     private boolean messageDismissed = false;
 
@@ -113,7 +114,6 @@ public class OnePlayerActivity extends AppCompatActivity {
                     buildMessageDialog("Your reaction time is " + String.valueOf(reactionTime) + "ms");
                 }
                 else {
-                    // TODO: Reset timer instead of just stopping it
                     timerH.removeCallbacks(timerR);
                     text.setText(R.string.reaction_timer_wait);
                     buildMessageDialog("Wait for the text to change! Timer reset.");

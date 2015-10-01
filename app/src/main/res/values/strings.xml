@@ -18,4 +18,11 @@
     <string name="reaction_timer_now">Now!</string>
 
     <string name="one_player_dialog_ok">OK</string>
+
+    <string name="title_activity_two_player">Two Player Buzzer</string>
+
+    <string name="player_one">P1</string>
+    <string name="player_two">P2</string>
+    <string name="player_three">P3</string>
+    <string name="player_four">P4</string>
 </resources>

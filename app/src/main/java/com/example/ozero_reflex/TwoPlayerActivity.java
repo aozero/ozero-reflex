@@ -1,41 +1,25 @@
 package com.example.ozero_reflex;
 
-import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 //import android.view.Menu;
 //import android.view.MenuItem;
-import android.view.View;
 
-
-public class MainActivity extends AppCompatActivity {
+public class TwoPlayerActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-    }
-
-    public void startOnePlayer(View view)
-    {
-        Intent onePlayerIntent = new Intent(this, OnePlayerActivity.class);
-        startActivity(onePlayerIntent);
-    }
-
-    public void startTwoPlayer(View view)
-    {
-        Intent twoPlayerIntent = new Intent(this, TwoPlayerActivity.class);
-        startActivity(twoPlayerIntent);
+        setContentView(R.layout.activity_two_player);
     }
 
     /*
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+        getMenuInflater().inflate(R.menu.menu_two_player, menu);
         return true;
     }
-
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -50,5 +34,6 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
-    }*/
+    }
+    */
 }
