@@ -5,18 +5,18 @@ import android.content.DialogInterface;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+//import android.view.Menu;
+//import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
-//import android.view.Menu;
-//import android.view.MenuItem;
-
-public class TwoPlayerActivity extends AppCompatActivity {
+public class ThreePlayerActivity extends AppCompatActivity {
 
     private boolean buttonWasTapped = false;
 
     private Button playerOneButton;
     private Button playerTwoButton;
+    private Button playerThreeButton;
 
     Handler waitH = new Handler();
     Runnable waitRPlayer1 = new Runnable() {
@@ -31,20 +31,28 @@ public class TwoPlayerActivity extends AppCompatActivity {
             buildMessageDialog("Player 2 tapped first!");
         }
     };
+    Runnable waitRPlayer3 = new Runnable() {
+        @Override
+        public void run() {
+            buildMessageDialog("Player 3 tapped first!");
+        }
+    };
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_two_player);
+        setContentView(R.layout.activity_three_player);
 
-        playerOneButton = (Button) findViewById(R.id.button6);
-        playerTwoButton = (Button) findViewById(R.id.button7);
+        playerOneButton = (Button) findViewById(R.id.button8);
+        playerTwoButton = (Button) findViewById(R.id.button9);
+        playerThreeButton = (Button) findViewById(R.id.button10);
 
         initializeListeners();
     }
 
     private void buildMessageDialog(String message) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(TwoPlayerActivity.this);
+        AlertDialog.Builder builder = new AlertDialog.Builder(ThreePlayerActivity.this);
         builder.setCancelable(false);
         builder.setMessage(message);
         builder.setPositiveButton(R.string.dialog_ok,
@@ -77,13 +85,21 @@ public class TwoPlayerActivity extends AppCompatActivity {
                 }
             }
         });
+        playerThreeButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                if (!buttonWasTapped) {
+                    buttonWasTapped = true;
+                    // Delay the dialog by half a second to prevent closing it accidentally
+                    waitH.postDelayed(waitRPlayer3, 500);
+                }
+            }
+        });
     }
-
     /*
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_two_player, menu);
+        getMenuInflater().inflate(R.menu.menu_three_player, menu);
         return true;
     }
 

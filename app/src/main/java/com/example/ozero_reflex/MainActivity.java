@@ -28,6 +28,12 @@ public class MainActivity extends AppCompatActivity {
         startActivity(twoPlayerIntent);
     }
 
+    public void startThreePlayer(View view)
+    {
+        Intent threePlayerIntent = new Intent(this, ThreePlayerActivity.class);
+        startActivity(threePlayerIntent);
+    }
+
     /*
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

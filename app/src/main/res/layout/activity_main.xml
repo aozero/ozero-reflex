@@ -52,7 +52,9 @@
         android:id="@+id/button3"
         android:layout_alignParentEnd="true"
         android:layout_below="@+id/button2"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:enabled="true"
+        android:onClick="startThreePlayer" />
 
     <Button
         android:layout_width="fill_parent"
