@@ -63,7 +63,9 @@
         android:id="@+id/button4"
         android:layout_alignParentEnd="true"
         android:layout_below="@+id/button3"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:onClick="startFourPlayer"
+        android:enabled="true" />
 
     <Button
         android:layout_width="fill_parent"

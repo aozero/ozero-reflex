@@ -34,6 +34,12 @@ public class MainActivity extends AppCompatActivity {
         startActivity(threePlayerIntent);
     }
 
+    public void startFourPlayer(View view)
+    {
+        Intent fourPlayerIntent = new Intent(this, FourPlayerActivity.class);
+        startActivity(fourPlayerIntent);
+    }
+
     /*
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
