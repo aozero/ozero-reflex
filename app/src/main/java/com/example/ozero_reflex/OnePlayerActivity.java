@@ -49,10 +49,10 @@ public class OnePlayerActivity extends AppCompatActivity {
         setContentView(R.layout.activity_one_player);
         text = (TextView) findViewById(R.id.reactionText);
         button = (Button) findViewById(R.id.reactionButton);
-        //Bring up the instructions
+        // Bring up the instructions
         buildMessageDialog("When the text changes, tap as quickly as you can. " +
                 "As you close this dialog, the timer will begin!");
-        //Start the game/test
+        // Set up the onClick listener
         initializeListener();
     }
 
@@ -73,9 +73,7 @@ public class OnePlayerActivity extends AppCompatActivity {
                 text.setText(R.string.reaction_timer_wait);
                 //timerH.postDelayed(timerR, randomTime());
                 //wasPaused = false;
-            } else {
-                // Let things resume as they were
-            }
+            } // else Let things resume as they were
         }
     }
 
