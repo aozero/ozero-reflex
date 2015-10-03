@@ -66,32 +66,28 @@ public class ThreePlayerActivity extends AppCompatActivity {
         builder.show();
     }
 
+    private void buttonTap(Runnable runnable) {
+        if (!buttonWasTapped) {
+            buttonWasTapped = true;
+            // Delay the dialog by half a second to prevent closing it accidentally
+            waitH.postDelayed(runnable, 500);
+        }
+    }
+
     private void initializeListeners() {
         playerOneButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                if (!buttonWasTapped) {
-                    buttonWasTapped = true;
-                    // Delay the dialog by half a second to prevent closing it accidentally
-                    waitH.postDelayed(waitRPlayer1, 500);
-                }
+                buttonTap(waitRPlayer1);
             }
         });
         playerTwoButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                if (!buttonWasTapped) {
-                    buttonWasTapped = true;
-                    // Delay the dialog by half a second to prevent closing it accidentally
-                    waitH.postDelayed(waitRPlayer2, 500);
-                }
+                buttonTap(waitRPlayer2);
             }
         });
         playerThreeButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                if (!buttonWasTapped) {
-                    buttonWasTapped = true;
-                    // Delay the dialog by half a second to prevent closing it accidentally
-                    waitH.postDelayed(waitRPlayer3, 500);
-                }
+                buttonTap(waitRPlayer3);
             }
         });
     }
