@@ -72,7 +72,7 @@ public class Stats {
 
     public Integer getAverage(ArrayList<Integer> list) {
         Integer sum = 0;
-        for (Integer i = 0; i <= list.size(); i++) {
+        for (Integer i = 0; i < list.size(); i++) {
             sum += list.get(i);
         }
         return sum / list.size();
@@ -87,62 +87,62 @@ public class Stats {
     }
 
     private String minReactionStats() {
-        return("\nMinimum\n" +
-                "\tLast Ten: " + Collections.min(getLastAmount(10)) + "ms\n" +
-                "\tLast Hundred: " + Collections.min(getLastAmount(100)) + "ms\n" +
-                "\tAll Time: " + Collections.min(reactionStatsList) + "ms");
+        return("Minimum" +
+                "\n\tLast Ten: " + Collections.min(getLastAmount(10)) + "ms" +
+                "\n\tLast Hundred: " + Collections.min(getLastAmount(100)) + "ms" +
+                "\n\tAll Time: " + Collections.min(reactionStatsList) + "ms\n");
     }
 
     private String maxReactionStats() {
-        return("\nMaximum\n" +
-                "\tLast Ten: " + Collections.max(getLastAmount(10)) + "ms\n" +
-                "\tLast Hundred: " + Collections.max(getLastAmount(100)) + "ms\n" +
-                "\tAll Time: " + Collections.max(reactionStatsList) + "ms");
+        return("Maximum" +
+                "\n\tLast Ten: " + Collections.max(getLastAmount(10)) + "ms" +
+                "\n\tLast Hundred: " + Collections.max(getLastAmount(100)) + "ms" +
+                "\n\tAll Time: " + Collections.max(reactionStatsList) + "ms\n");
     }
 
     private String avgReactionStats() {
-        return("\nAverage\n" +
-                "\n\tLast Ten: " + getAverage(getLastAmount(10)) + "ms\n" +
-                "\n\tLast Hundred: " + getAverage(getLastAmount(100)) + "ms\n" +
-                "\n\tAll Time: " + getAverage(reactionStatsList) + "ms");
+        return("Average" +
+                "\n\tLast Ten: " + getAverage(getLastAmount(10)) + "ms" +
+                "\n\tLast Hundred: " + getAverage(getLastAmount(100)) + "ms" +
+                "\n\tAll Time: " + getAverage(reactionStatsList) + "ms\n");
     }
 
     private String medReactionStats() {
-        return("\nMedian\n" +
-                "\n\tLast Ten: " + getMedian(getLastAmount(10)) + "ms\n" +
-                "\n\tLast Hundred: " + getMedian(getLastAmount(100)) + "ms\n" +
-                "\n\tAll Time: " + getMedian(reactionStatsList) + "ms");
+        return("Median" +
+                "\n\tLast Ten: " + getMedian(getLastAmount(10)) + "ms" +
+                "\n\tLast Hundred: " + getMedian(getLastAmount(100)) + "ms" +
+                "\n\tAll Time: " + getMedian(reactionStatsList) + "ms\n");
     }
 
     private String twoPlayerStats() {
-        return("\nTwo Player\n" +
-                "\tPlayer One: " + twoPlayerStatsList.get(0) + "\n" +
-                "\tPlayer Two: " + twoPlayerStatsList.get(1) + "\n");
+        return("Two Player Mode" +
+                "\n\tPlayer One: " + twoPlayerStatsList.get(0) +
+                "\n\tPlayer Two: " + twoPlayerStatsList.get(1) + "\n");
     }
 
     private String threePlayerStats() {
-        return("\nThree Player\n" +
-                "\tPlayer One: " + threePlayerStatsList.get(0) + "\n" +
-                "\tPlayer Two: " + threePlayerStatsList.get(1) + "\n" +
-                "\tPlayer Three: " + threePlayerStatsList.get(2));
+        return("Three Player Mode" +
+                "\n\tPlayer One: " + threePlayerStatsList.get(0) +
+                "\n\tPlayer Two: " + threePlayerStatsList.get(1) +
+                "\n\tPlayer Three: " + threePlayerStatsList.get(2) +"\n");
     }
 
     private String fourPlayerStats() {
-        return("\nFour Player\n" +
+        return("Four Player Mode\n" +
                 "\tPlayer One: " + fourPlayerStatsList.get(0) + "\n" +
                 "\tPlayer Two: " + fourPlayerStatsList.get(1) + "\n" +
                 "\tPlayer Three: " + fourPlayerStatsList.get(2) + "\n" +
-                "\tPlayer Four: " + fourPlayerStatsList.get(3));
+                "\tPlayer Four: " + fourPlayerStatsList.get(3) + "\n");
     }
 
-    public ArrayList<String> getStats() {
+    public ArrayList<String> getStatsStrings() {
         ArrayList<String> strings = new ArrayList<>();
-        strings.add("REACTION TIMES\n");
+        strings.add("\t\t\tREACTION TIMES");
         strings.add(minReactionStats());
         strings.add(maxReactionStats());
         strings.add(avgReactionStats());
         strings.add(medReactionStats());
-        strings.add("BUZZER TIMES\n");
+        strings.add("\t\t\tBUZZER MODE WINS");
         strings.add(twoPlayerStats());
         strings.add(threePlayerStats());
         strings.add(fourPlayerStats());

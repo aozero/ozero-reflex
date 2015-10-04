@@ -10,13 +10,18 @@ import android.widget.ListView;
 
 public class StatisticsActivity extends AppCompatActivity {
 
+    private ArrayAdapter<String> statsAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_statistics);
-
         ListView listView = (ListView) findViewById(R.id.listView);
-        listView.setAdapter(null);
+
+        ReactionTest test = new ReactionTest(StatisticsActivity.this);
+        statsAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1,
+                test.getStats().getStatsStrings());
+        listView.setAdapter(statsAdapter);
     }
 
     /*

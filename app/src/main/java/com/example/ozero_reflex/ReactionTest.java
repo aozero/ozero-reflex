@@ -16,6 +16,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.util.ArrayList;
 import java.util.Random;
 
 /**
@@ -50,6 +51,10 @@ public class ReactionTest {
             timerStarted = true;
         }
     };
+
+    public ReactionTest(Context context) {
+        this.context = context;
+    }
 
     public ReactionTest(View text, View button, Context context) {
         this.text = (TextView) text;
@@ -89,6 +94,11 @@ public class ReactionTest {
 
     public Long getReactionTime() {
         return reactionTime;
+    }
+
+    public Stats getStats() {
+        loadFromFile();
+        return stats;
     }
 
     // From CMPUT 301 Lab 3
