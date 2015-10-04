@@ -40,6 +40,12 @@ public class MainActivity extends AppCompatActivity {
         startActivity(fourPlayerIntent);
     }
 
+    public void startStatistics(View view)
+    {
+        Intent statisticsIntent = new Intent(this, StatisticsActivity.class);
+        startActivity(statisticsIntent);
+    }
+
     /*
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

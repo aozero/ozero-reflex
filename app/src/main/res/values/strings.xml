@@ -28,5 +28,6 @@
 
     <string name="title_activity_three_player">Three Player Buzzer</string>
     <string name="title_activity_four_player">Four Player Buzzer</string>
+    <string name="title_activity_statistics">Statistics</string>
 
 </resources>

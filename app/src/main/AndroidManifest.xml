@@ -32,6 +32,10 @@
             android:name=".FourPlayerActivity"
             android:label="@string/title_activity_four_player" >
         </activity>
+        <activity
+            android:name=".StatisticsActivity"
+            android:label="@string/title_activity_statistics" >
+        </activity>
     </application>
 
 </manifest>
