@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Reflex</string>
+    <string name="app_name">Ozero-Reflex</string>
     <string name="action_settings">Settings</string>
 
     <string name="reaction_mode_header">Reaction Timer Mode</string>

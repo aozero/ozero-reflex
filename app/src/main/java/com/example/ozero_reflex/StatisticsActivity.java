@@ -2,6 +2,9 @@ package com.example.ozero_reflex;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.Adapter;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 //import android.view.Menu;
 //import android.view.MenuItem;
 
@@ -11,6 +14,9 @@ public class StatisticsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_statistics);
+
+        ListView listView = (ListView) findViewById(R.id.listView);
+        listView.setAdapter(null);
     }
 
     /*
