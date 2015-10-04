@@ -10,6 +10,17 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.google.gson.Gson;
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+
 public class ThreePlayerActivity extends AppCompatActivity {
 
     private boolean buttonWasTapped = false;
@@ -18,22 +29,32 @@ public class ThreePlayerActivity extends AppCompatActivity {
     private Button playerTwoButton;
     private Button playerThreeButton;
 
+    // For statistics saving
+    private static final String FILENAME = "threePlayerStats.sav";
+    Stats stats = new Stats();
+
     Handler waitH = new Handler();
     Runnable waitRPlayer1 = new Runnable() {
         @Override
         public void run() {
+            stats.addBuzzerStat(0);
+            saveInFile();
             buildMessageDialog("Player 1 tapped first!");
         }
     };
     Runnable waitRPlayer2 = new Runnable() {
         @Override
         public void run() {
+            stats.addBuzzerStat(1);
+            saveInFile();
             buildMessageDialog("Player 2 tapped first!");
         }
     };
     Runnable waitRPlayer3 = new Runnable() {
         @Override
         public void run() {
+            stats.addBuzzerStat(2);
+            saveInFile();
             buildMessageDialog("Player 3 tapped first!");
         }
     };
@@ -47,6 +68,9 @@ public class ThreePlayerActivity extends AppCompatActivity {
         playerOneButton = (Button) findViewById(R.id.button8);
         playerTwoButton = (Button) findViewById(R.id.button9);
         playerThreeButton = (Button) findViewById(R.id.button10);
+
+        // Load statistics file
+        loadFromFile();
 
         initializeListeners();
     }
@@ -91,6 +115,42 @@ public class ThreePlayerActivity extends AppCompatActivity {
             }
         });
     }
+
+    // From CMPUT 301 Lab 3
+    private void loadFromFile() {
+        try {
+            FileInputStream fis = openFileInput(FILENAME);
+            BufferedReader in = new BufferedReader(new InputStreamReader(fis));
+            Gson gson = new Gson();
+            stats = gson.fromJson(in, Stats.class);
+        } catch (FileNotFoundException e) {
+            stats = new Stats();
+            stats.createBuzzerStat(3);
+            saveInFile();
+        } /* catch (IOException e) {
+            // TODO Auto-generated catch block
+            throw new RuntimeException(e);
+        } */
+    }
+
+    // From CMPUT 301 Lab 3
+    private void saveInFile() {
+        try {
+            FileOutputStream fos = openFileOutput(FILENAME, 0);
+            BufferedWriter out = new BufferedWriter(new OutputStreamWriter(fos));
+            Gson gson = new Gson();
+            gson.toJson(stats, out);
+            out.flush();
+            fos.close();
+        } catch (FileNotFoundException e) {
+            // TODO Auto-generated catch block
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            throw new RuntimeException(e);
+        }
+    }
+
     /*
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

@@ -1,7 +1,6 @@
 package com.example.ozero_reflex;
 
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
@@ -21,7 +20,6 @@ import java.io.OutputStreamWriter;
 import java.util.Random;
 
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 //import android.view.Menu;
 //import android.view.MenuItem;
 
@@ -128,9 +126,10 @@ public class OnePlayerActivity extends AppCompatActivity {
                 if (timerStarted) {
                     reactionTime = System.currentTimeMillis() - startTime;
                     timerStarted = false;
-                    stats.add((int) reactionTime);
+                    stats.addReactionStat((int) reactionTime);
                     saveInFile();
-                    buildMessageDialog("Your reaction time is " + String.valueOf(reactionTime) + "ms");
+                    buildMessageDialog("Your reaction time is " + String.valueOf(reactionTime)
+                            + "ms.");
                 } else {
                     timerH.removeCallbacks(timerR);
                     text.setText(R.string.reaction_timer_wait);

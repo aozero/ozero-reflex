@@ -7,6 +7,17 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+
+import com.google.gson.Gson;
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 //import android.view.Menu;
 //import android.view.MenuItem;
 
@@ -18,28 +29,40 @@ public class FourPlayerActivity extends AppCompatActivity {
     private Button playerThreeButton;
     private Button playerFourButton;
 
+    // For statistics saving
+    private static final String FILENAME = "fourPlayerStats.sav";
+    Stats stats = new Stats();
+
     Handler waitH = new Handler();
     Runnable waitRPlayer1 = new Runnable() {
         @Override
         public void run() {
+            stats.addBuzzerStat(0);
+            saveInFile();
             buildMessageDialog("Player 1 tapped first!");
         }
     };
     Runnable waitRPlayer2 = new Runnable() {
         @Override
         public void run() {
+            stats.addBuzzerStat(1);
+            saveInFile();
             buildMessageDialog("Player 2 tapped first!");
         }
     };
     Runnable waitRPlayer3 = new Runnable() {
         @Override
         public void run() {
+            stats.addBuzzerStat(2);
+            saveInFile();
             buildMessageDialog("Player 3 tapped first!");
         }
     };
     Runnable waitRPlayer4 = new Runnable() {
         @Override
         public void run() {
+            stats.addBuzzerStat(3);
+            saveInFile();
             buildMessageDialog("Player 4 tapped first!");
         }
     };
@@ -55,6 +78,9 @@ public class FourPlayerActivity extends AppCompatActivity {
         playerThreeButton = (Button) findViewById(R.id.button13);
         playerFourButton = (Button) findViewById(R.id.button14);
 
+        // Load statistics file
+        loadFromFile();
+        
         initializeListeners();
     }
 
@@ -104,6 +130,40 @@ public class FourPlayerActivity extends AppCompatActivity {
         });
     }
 
+    // From CMPUT 301 Lab 3
+    private void loadFromFile() {
+        try {
+            FileInputStream fis = openFileInput(FILENAME);
+            BufferedReader in = new BufferedReader(new InputStreamReader(fis));
+            Gson gson = new Gson();
+            stats = gson.fromJson(in, Stats.class);
+        } catch (FileNotFoundException e) {
+            stats = new Stats();
+            stats.createBuzzerStat(4);
+            saveInFile();
+        } /* catch (IOException e) {
+            // TODO Auto-generated catch block
+            throw new RuntimeException(e);
+        } */
+    }
+
+    // From CMPUT 301 Lab 3
+    private void saveInFile() {
+        try {
+            FileOutputStream fos = openFileOutput(FILENAME, 0);
+            BufferedWriter out = new BufferedWriter(new OutputStreamWriter(fos));
+            Gson gson = new Gson();
+            gson.toJson(stats, out);
+            out.flush();
+            fos.close();
+        } catch (FileNotFoundException e) {
+            // TODO Auto-generated catch block
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            throw new RuntimeException(e);
+        }
+    }
     /*
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

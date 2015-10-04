@@ -8,6 +8,17 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.google.gson.Gson;
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+
 //import android.view.Menu;
 //import android.view.MenuItem;
 
@@ -18,16 +29,24 @@ public class TwoPlayerActivity extends AppCompatActivity {
     private Button playerOneButton;
     private Button playerTwoButton;
 
+    // For statistics saving
+    private static final String FILENAME = "twoPlayerStats.sav";
+    Stats stats = new Stats();
+
     Handler waitH = new Handler();
     Runnable waitRPlayer1 = new Runnable() {
         @Override
         public void run() {
+            stats.addBuzzerStat(0);
+            saveInFile();
             buildMessageDialog("Player 1 tapped first!");
         }
     };
     Runnable waitRPlayer2 = new Runnable() {
         @Override
         public void run() {
+            stats.addBuzzerStat(1);
+            saveInFile();
             buildMessageDialog("Player 2 tapped first!");
         }
     };
@@ -39,6 +58,8 @@ public class TwoPlayerActivity extends AppCompatActivity {
 
         playerOneButton = (Button) findViewById(R.id.button6);
         playerTwoButton = (Button) findViewById(R.id.button7);
+        // Load statistics file
+        loadFromFile();
 
         initializeListeners();
     }
@@ -79,6 +100,40 @@ public class TwoPlayerActivity extends AppCompatActivity {
         });
     }
 
+    // From CMPUT 301 Lab 3
+    private void loadFromFile() {
+        try {
+            FileInputStream fis = openFileInput(FILENAME);
+            BufferedReader in = new BufferedReader(new InputStreamReader(fis));
+            Gson gson = new Gson();
+            stats = gson.fromJson(in, Stats.class);
+        } catch (FileNotFoundException e) {
+            stats = new Stats();
+            stats.createBuzzerStat(2);
+            saveInFile();
+        } /* catch (IOException e) {
+            // TODO Auto-generated catch block
+            throw new RuntimeException(e);
+        } */
+    }
+
+    // From CMPUT 301 Lab 3
+    private void saveInFile() {
+        try {
+            FileOutputStream fos = openFileOutput(FILENAME, 0);
+            BufferedWriter out = new BufferedWriter(new OutputStreamWriter(fos));
+            Gson gson = new Gson();
+            gson.toJson(stats, out);
+            out.flush();
+            fos.close();
+        } catch (FileNotFoundException e) {
+            // TODO Auto-generated catch block
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            throw new RuntimeException(e);
+        }
+    }
     /*
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
