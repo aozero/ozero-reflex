@@ -101,6 +101,11 @@ public class ReactionTest {
         return stats;
     }
 
+    public void clearStats() {
+        stats.clearStats();
+        saveInFile();
+    }
+
     // From CMPUT 301 Lab 3
     public void loadFromFile() {
         try {

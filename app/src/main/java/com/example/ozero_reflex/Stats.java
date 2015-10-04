@@ -87,52 +87,101 @@ public class Stats {
     }
 
     private String minReactionStats() {
-        return("Minimum" +
-                "\n\tLast Ten: " + Collections.min(getLastAmount(10)) + "ms" +
-                "\n\tLast Hundred: " + Collections.min(getLastAmount(100)) + "ms" +
-                "\n\tAll Time: " + Collections.min(reactionStatsList) + "ms\n");
+        if(reactionStatsList.isEmpty()) {
+            return("Minimum" +
+                    "\n\tLast Ten: --ms" +
+                    "\n\tLast Hundred: --ms" +
+                    "\n\tAll Time: --ms\n");
+        } else {
+            return ("Minimum" +
+                    "\n\tLast Ten: " + Collections.min(getLastAmount(10)) + "ms" +
+                    "\n\tLast Hundred: " + Collections.min(getLastAmount(100)) + "ms" +
+                    "\n\tAll Time: " + Collections.min(reactionStatsList) + "ms\n");
+        }
     }
 
     private String maxReactionStats() {
-        return("Maximum" +
-                "\n\tLast Ten: " + Collections.max(getLastAmount(10)) + "ms" +
-                "\n\tLast Hundred: " + Collections.max(getLastAmount(100)) + "ms" +
-                "\n\tAll Time: " + Collections.max(reactionStatsList) + "ms\n");
+        if (reactionStatsList.isEmpty()) {
+            return("Maximum" +
+                    "\n\tLast Ten: --ms" +
+                    "\n\tLast Hundred: --ms" +
+                    "\n\tAll Time: --ms\n");
+        } else {
+            return ("Maximum" +
+                    "\n\tLast Ten: " + Collections.max(getLastAmount(10)) + "ms" +
+                    "\n\tLast Hundred: " + Collections.max(getLastAmount(100)) + "ms" +
+                    "\n\tAll Time: " + Collections.max(reactionStatsList) + "ms\n");
+        }
     }
 
     private String avgReactionStats() {
-        return("Average" +
-                "\n\tLast Ten: " + getAverage(getLastAmount(10)) + "ms" +
-                "\n\tLast Hundred: " + getAverage(getLastAmount(100)) + "ms" +
-                "\n\tAll Time: " + getAverage(reactionStatsList) + "ms\n");
+        if (reactionStatsList.isEmpty()) {
+            return("Average" +
+                    "\n\tLast Ten: --ms" +
+                    "\n\tLast Hundred: --ms" +
+                    "\n\tAll Time: --ms\n");
+        } else {
+            return ("Average" +
+                    "\n\tLast Ten: " + getAverage(getLastAmount(10)) + "ms" +
+                    "\n\tLast Hundred: " + getAverage(getLastAmount(100)) + "ms" +
+                    "\n\tAll Time: " + getAverage(reactionStatsList) + "ms\n");
+        }
     }
 
     private String medReactionStats() {
-        return("Median" +
-                "\n\tLast Ten: " + getMedian(getLastAmount(10)) + "ms" +
-                "\n\tLast Hundred: " + getMedian(getLastAmount(100)) + "ms" +
-                "\n\tAll Time: " + getMedian(reactionStatsList) + "ms\n");
+        if (reactionStatsList.isEmpty()) {
+            return("Median" +
+                    "\n\tLast Ten: --ms" +
+                    "\n\tLast Hundred: --ms" +
+                    "\n\tAll Time: --ms\n");
+        } else {
+            return ("Median" +
+                    "\n\tLast Ten: " + getMedian(getLastAmount(10)) + "ms" +
+                    "\n\tLast Hundred: " + getMedian(getLastAmount(100)) + "ms" +
+                    "\n\tAll Time: " + getMedian(reactionStatsList) + "ms\n");
+        }
     }
 
     private String twoPlayerStats() {
-        return("Two Player Mode" +
-                "\n\tPlayer One: " + twoPlayerStatsList.get(0) +
-                "\n\tPlayer Two: " + twoPlayerStatsList.get(1) + "\n");
+        if (twoPlayerStatsList.isEmpty()) {
+            return("Two Player Mode" +
+                    "\n\tPlayer One: --" +
+                    "\n\tPlayer Two: --\n");
+        } else {
+            return ("Two Player Mode" +
+                    "\n\tPlayer One: " + twoPlayerStatsList.get(0) +
+                    "\n\tPlayer Two: " + twoPlayerStatsList.get(1) + "\n");
+        }
     }
 
     private String threePlayerStats() {
-        return("Three Player Mode" +
-                "\n\tPlayer One: " + threePlayerStatsList.get(0) +
-                "\n\tPlayer Two: " + threePlayerStatsList.get(1) +
-                "\n\tPlayer Three: " + threePlayerStatsList.get(2) +"\n");
+        if (threePlayerStatsList.isEmpty()) {
+            return("Three Player Mode" +
+                    "\n\tPlayer One: --" +
+                    "\n\tPlayer Two: --" +
+                    "\n\tPlayer Three: --\n");
+        } else {
+            return ("Three Player Mode" +
+                    "\n\tPlayer One: " + threePlayerStatsList.get(0) +
+                    "\n\tPlayer Two: " + threePlayerStatsList.get(1) +
+                    "\n\tPlayer Three: " + threePlayerStatsList.get(2) + "\n");
+        }
     }
 
     private String fourPlayerStats() {
-        return("Four Player Mode\n" +
-                "\tPlayer One: " + fourPlayerStatsList.get(0) + "\n" +
-                "\tPlayer Two: " + fourPlayerStatsList.get(1) + "\n" +
-                "\tPlayer Three: " + fourPlayerStatsList.get(2) + "\n" +
-                "\tPlayer Four: " + fourPlayerStatsList.get(3) + "\n");
+        if(fourPlayerStatsList.isEmpty()) {
+            return("Four Player Mode" +
+                    "\n\tPlayer One: --" +
+                    "\n\tPlayer Two: --" +
+                    "\n\tPlayer Three: --" +
+                    "\n\tPlayer Four: --\n");
+        } else {
+            return ("Four Player Mode" +
+                    "\n\tPlayer One: " + fourPlayerStatsList.get(0) +
+                    "\n\tPlayer Two: " + fourPlayerStatsList.get(1) +
+                    "\n\tPlayer Three: " + fourPlayerStatsList.get(2) +
+                    "\n\tPlayer Four: " + fourPlayerStatsList.get(3) + "\n");
+        }
     }
 
     public ArrayList<String> getStatsStrings() {
