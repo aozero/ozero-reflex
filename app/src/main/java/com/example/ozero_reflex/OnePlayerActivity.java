@@ -1,6 +1,7 @@
 package com.example.ozero_reflex;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
@@ -9,7 +10,18 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.util.Random;
+
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 //import android.view.Menu;
 //import android.view.MenuItem;
 
@@ -22,6 +34,9 @@ public class OnePlayerActivity extends AppCompatActivity {
     // To assist with onPause() and onResume()
     private boolean wasPaused = false;
     private boolean messageDismissed = false;
+    // For statistics saving
+    private static final String FILENAME = "reactionStats.sav";
+    Stats stats = new Stats();
 
     static final int minTime = 10;
     static final int maxTime = 2000;
@@ -49,6 +64,8 @@ public class OnePlayerActivity extends AppCompatActivity {
         setContentView(R.layout.activity_one_player);
         text = (TextView) findViewById(R.id.reactionText);
         button = (Button) findViewById(R.id.reactionButton);
+        // Loads the stats save file
+        loadFromFile();
         // Bring up the instructions
         buildMessageDialog("When the text changes, tap as quickly as you can. " +
                 "As you close this dialog, the timer will begin!");
@@ -61,12 +78,14 @@ public class OnePlayerActivity extends AppCompatActivity {
         super.onPause();
         timerH.removeCallbacks(timerR);
         wasPaused = true;
+        //saveInFile();
     }
 
     @Override
     public void onResume() {
         super.onResume();
         if (wasPaused) {
+            loadFromFile();
             if (messageDismissed) {
                 buildMessageDialog("When the text changes, tap as quickly as you can. " +
                         "As you close this dialog, the timer will begin!");
@@ -84,14 +103,14 @@ public class OnePlayerActivity extends AppCompatActivity {
         builder.setMessage(message);
         builder.setPositiveButton(R.string.dialog_ok,
                 new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-                messageDismissed = true;
-                text.setText(R.string.reaction_timer_wait);
-                timerH.postDelayed(timerR, randomTime());
-            }
-        });
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        messageDismissed = true;
+                        text.setText(R.string.reaction_timer_wait);
+                        timerH.postDelayed(timerR, randomTime());
+                    }
+                });
         builder.show();
     }
 
@@ -109,9 +128,10 @@ public class OnePlayerActivity extends AppCompatActivity {
                 if (timerStarted) {
                     reactionTime = System.currentTimeMillis() - startTime;
                     timerStarted = false;
+                    stats.add((int) reactionTime);
+                    saveInFile();
                     buildMessageDialog("Your reaction time is " + String.valueOf(reactionTime) + "ms");
-                }
-                else {
+                } else {
                     timerH.removeCallbacks(timerR);
                     text.setText(R.string.reaction_timer_wait);
                     buildMessageDialog("Wait for the text to change! Timer reset.");
@@ -120,6 +140,38 @@ public class OnePlayerActivity extends AppCompatActivity {
         });
     }
 
+    // From CMPUT 301 Lab 3
+    private void loadFromFile() {
+        try {
+            FileInputStream fis = openFileInput(FILENAME);
+            BufferedReader in = new BufferedReader(new InputStreamReader(fis));
+            Gson gson = new Gson();
+            stats = gson.fromJson(in, Stats.class);
+        } catch (FileNotFoundException e) {
+            stats = new Stats();
+        } /* catch (IOException e) {
+            // TODO Auto-generated catch block
+            throw new RuntimeException(e);
+        } */
+    }
+
+    // From CMPUT 301 Lab 3
+    private void saveInFile() {
+        try {
+            FileOutputStream fos = openFileOutput(FILENAME, 0);
+            BufferedWriter out = new BufferedWriter(new OutputStreamWriter(fos));
+            Gson gson = new Gson();
+            gson.toJson(stats, out);
+            out.flush();
+            fos.close();
+        } catch (FileNotFoundException e) {
+            // TODO Auto-generated catch block
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            throw new RuntimeException(e);
+        }
+    }
     /*@Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.

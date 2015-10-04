@@ -22,4 +22,5 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.android.support:appcompat-v7:23.0.0'
+    compile files('C:/UAlberta/CMPUT301/Assignment1/ozero-reflex/libs/gson-2.4.jar')
 }
