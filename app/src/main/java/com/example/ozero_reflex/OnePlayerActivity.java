@@ -20,9 +20,6 @@ import java.io.OutputStreamWriter;
 import java.util.Random;
 
 import com.google.gson.Gson;
-//import android.view.Menu;
-//import android.view.MenuItem;
-
 
 public class OnePlayerActivity extends AppCompatActivity {
 
@@ -33,7 +30,7 @@ public class OnePlayerActivity extends AppCompatActivity {
     private boolean wasPaused = false;
     private boolean messageDismissed = false;
     // For statistics saving
-    private static final String FILENAME = "reactionStats.sav";
+    private static final String FILENAME = "stats.sav";
     Stats stats = new Stats();
 
     static final int minTime = 10;
@@ -171,25 +168,4 @@ public class OnePlayerActivity extends AppCompatActivity {
             throw new RuntimeException(e);
         }
     }
-    /*@Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_one_player, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }*/
 }

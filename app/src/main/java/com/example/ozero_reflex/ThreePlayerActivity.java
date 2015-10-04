@@ -5,8 +5,6 @@ import android.content.DialogInterface;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-//import android.view.Menu;
-//import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
@@ -30,14 +28,14 @@ public class ThreePlayerActivity extends AppCompatActivity {
     private Button playerThreeButton;
 
     // For statistics saving
-    private static final String FILENAME = "threePlayerStats.sav";
+    private static final String FILENAME = "stats.sav";
     Stats stats = new Stats();
 
     Handler waitH = new Handler();
     Runnable waitRPlayer1 = new Runnable() {
         @Override
         public void run() {
-            stats.addBuzzerStat(0);
+            stats.addThreePlayerStat(0);
             saveInFile();
             buildMessageDialog("Player 1 tapped first!");
         }
@@ -45,7 +43,7 @@ public class ThreePlayerActivity extends AppCompatActivity {
     Runnable waitRPlayer2 = new Runnable() {
         @Override
         public void run() {
-            stats.addBuzzerStat(1);
+            stats.addThreePlayerStat(1);
             saveInFile();
             buildMessageDialog("Player 2 tapped first!");
         }
@@ -53,7 +51,7 @@ public class ThreePlayerActivity extends AppCompatActivity {
     Runnable waitRPlayer3 = new Runnable() {
         @Override
         public void run() {
-            stats.addBuzzerStat(2);
+            stats.addThreePlayerStat(2);
             saveInFile();
             buildMessageDialog("Player 3 tapped first!");
         }
@@ -125,7 +123,7 @@ public class ThreePlayerActivity extends AppCompatActivity {
             stats = gson.fromJson(in, Stats.class);
         } catch (FileNotFoundException e) {
             stats = new Stats();
-            stats.createBuzzerStat(3);
+            //stats.createBuzzerStat(3);
             saveInFile();
         } /* catch (IOException e) {
             // TODO Auto-generated catch block
@@ -150,28 +148,4 @@ public class ThreePlayerActivity extends AppCompatActivity {
             throw new RuntimeException(e);
         }
     }
-
-    /*
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_three_player, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-    */
 }
