@@ -1,6 +1,8 @@
 # ozero-reflex
 CMPUT 301 Assignment 1 - A Reaction Time Testing and Gameshow Buzzer App
 
+Demonstration video located under the vid/ directory.
+
 # License
 Copyright 2015 Alexander Ozero
 
@@ -22,12 +24,15 @@ Some designs in this project were based upon others, specifically:
 
 Weight of buttons:
 https://stackoverflow.com/questions/7452741/what-is-androidweightsum-in-android-and-how-does-it-work 2015-10-01
+
 User: superM
 
 Handlers and Runnables:
 https://stackoverflow.com/questions/4597690/android-timer-how 2015-09-27
+
 User: Dave.B
 
 Using intents to change the layout of an activity:
 https://stackoverflow.com/questions/7175881/android-start-intent-with-different-layout 2015-10-03
+
 User: DeeV
