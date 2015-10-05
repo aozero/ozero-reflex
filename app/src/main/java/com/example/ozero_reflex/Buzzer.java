@@ -28,15 +28,19 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 
+// Used for the multiplayer buzzer mode. Handles adding buttons taps to the stats and checking
+// if they are the first tap
 public class Buzzer {
-    private boolean buttonWasTapped = false;
-    private int players;
 
-    private Context context;
+    private boolean buttonWasTapped = false;
+    // Amount of players
+    private int players;
 
     // For statistics saving
     private static final String FILENAME = "stats.sav";
-    Stats stats = new Stats();
+    Statistics stats = new Statistics();
+
+    private Context context;
 
     public Buzzer(Context context) {
         this.context = context;
@@ -53,28 +57,32 @@ public class Buzzer {
         } else return false;
     }
 
+    // Used by BuzzerActivity to set buttonWasTapped to false after the dialog is dismissed
     public void setButtonWasTapped(boolean bool) {
         buttonWasTapped = bool;
     }
 
+    // Takes the amount of players from Buzzer Activity and saves it to an int
     public void setPlayers(Integer players) {
         this.players = players;
     }
 
-    // From CMPUT 301 Lab 3
+    // From CMPUT 301 Lab 3. Used and modified with permission from J. Campbell
+    // https://github.com/joshua2ua/lonelyTwitter
     public void loadFromFile() {
         try {
             FileInputStream fis = context.openFileInput(FILENAME);
             BufferedReader in = new BufferedReader(new InputStreamReader(fis));
             Gson gson = new Gson();
-            stats = gson.fromJson(in, Stats.class);
+            stats = gson.fromJson(in, Statistics.class);
         } catch (FileNotFoundException e) {
-            stats = new Stats();
+            stats = new Statistics();
             saveInFile();
         }
     }
 
-    // From CMPUT 301 Lab 3
+    // From CMPUT 301 Lab 3. Used and modified with permission from J. Campbell
+    // https://github.com/joshua2ua/lonelyTwitter
     public void saveInFile() {
         try {
             FileOutputStream fos = context.openFileOutput(FILENAME, 0);

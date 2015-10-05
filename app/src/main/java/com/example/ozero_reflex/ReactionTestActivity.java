@@ -23,6 +23,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+// The UI for the reaction timer test. Handles dialogs and button clicks.
 public class ReactionTestActivity extends AppCompatActivity {
 
     // To assist with onPause() and onResume()
@@ -39,7 +40,7 @@ public class ReactionTestActivity extends AppCompatActivity {
         setContentView(R.layout.activity_reaction_test);
         text = (TextView) findViewById(R.id.reactionText);
         button = (Button) findViewById(R.id.reactionButton);
-        reactionTest = new ReactionTest(text, button, ReactionTestActivity.this);
+        reactionTest = new ReactionTest(text, ReactionTestActivity.this);
         // Loads the stats save file
         reactionTest.loadFromFile();
         // Bring up the instructions
@@ -59,7 +60,7 @@ public class ReactionTestActivity extends AppCompatActivity {
     @Override
     public void onResume() {
         super.onResume();
-        if (wasPaused) {
+        if (wasPaused) { // if wasPaused then this is not onResume() being called by onCreate()
             reactionTest.resume();
             if (messageDismissed) {
                 buildMessageDialog("When the text changes, tap as quickly as you can. " +
@@ -85,7 +86,6 @@ public class ReactionTestActivity extends AppCompatActivity {
                 });
         builder.show();
     }
-
 
     private void initializeListener() {
         button.setOnClickListener(new View.OnClickListener() {

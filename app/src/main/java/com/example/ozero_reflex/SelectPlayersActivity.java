@@ -20,6 +20,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
+// The UI to select the amount of players for the buzzer mode.
 public class SelectPlayersActivity extends AppCompatActivity {
 
     @Override
@@ -28,6 +29,8 @@ public class SelectPlayersActivity extends AppCompatActivity {
         setContentView(R.layout.activity_select_players);
     }
 
+    // The start*Player methods pass layouts and the number of players to BuzzerActivity so it knows
+    // what layout to use and where in the list to add the stats to.
     public void startTwoPlayer(View view)
     {
         Intent intent = new Intent(this, BuzzerActivity.class);

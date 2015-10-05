@@ -18,7 +18,8 @@ package com.example.ozero_reflex;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class Stats {
+// Used for the collection, persistent storage, and
+public class Statistics {
 
     private ArrayList<Integer> reactionStatsList = new ArrayList<>();
     private ArrayList<Integer> buzzerStatsList = new ArrayList<>();
@@ -28,8 +29,11 @@ public class Stats {
         reactionStatsList.add(stat);
     }
 
-    // Add two, three, and four player stats
+    // Add two, three, and four player stats. Uses the first two integers for 2P mode, next three
+    // for 3P mode, and last four for 4P mode.
     public void addBuzzerStat(Integer index, Integer players) {
+        // start is used to help determine where to increment the stat. For instance, in 3P mode,
+        // start is 2, meaning the first two ints are skipped because they're used for 2P mode.
         int start = 0;
 
         switch(players) {
@@ -54,36 +58,12 @@ public class Stats {
         }
     }
 
-    /*
-    public void addThreePlayerStat(Integer index) {
-        try {
-            buzzerStatsList.set(index+2, buzzerStatsList.get(index+2)+1);
-        } catch (IndexOutOfBoundsException e) {
-            // Initialize default values, then increment the one specified
-            for (int i = 0; i < 9; i++) {
-                buzzerStatsList.add(0);
-            }
-            buzzerStatsList.set(index+2, buzzerStatsList.get(index+2) + 1);
-        }
-    }
-
-    public void addFourPlayerStat(Integer index) {
-        try {
-            buzzerStatsList.set(index+5, buzzerStatsList.get(index+5)+1);
-        } catch (IndexOutOfBoundsException e) {
-            // Initialize default values, then increment the one specified
-            for (int i = 0; i < 9; i++) {
-                buzzerStatsList.add(0);
-            }
-            buzzerStatsList.set(index+5, buzzerStatsList.get(index+5)+1);
-        }
-    }*/
-
     public void clearStats() {
         reactionStatsList.clear();
         buzzerStatsList.clear();
     }
 
+    // Gets the last specified amount of reaction stats to be min'd, max'd, etc.
     public ArrayList<Integer> getLastAmount(Integer amtToGet){
         if(reactionStatsList.size() < amtToGet){
             amtToGet = reactionStatsList.size();
@@ -209,6 +189,7 @@ public class Stats {
         }
     }
 
+    // Returns the statistics in an arraylist, used inStatistics Activity
     public ArrayList<String> getStatsStrings() {
         ArrayList<String> strings = new ArrayList<>();
         strings.add("REACTION TIMES");
@@ -224,6 +205,7 @@ public class Stats {
         return strings;
     }
 
+    // Returns the statistics as a string, used for clean, readable text when sending stats as email
     public String getStatsAsString() {
         String string;
         string = "REACTION TIMES\n\n" + minReactionStats() + maxReactionStats() +

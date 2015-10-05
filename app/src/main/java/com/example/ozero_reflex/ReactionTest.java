@@ -18,7 +18,6 @@ package com.example.ozero_reflex;
 import android.content.Context;
 import android.os.Handler;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
@@ -31,25 +30,26 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
-import java.util.ArrayList;
 import java.util.Random;
 
+// Used for the single player reaction timer mode. Handles reaction stats, testing, and
+// reaction time measurement
 public class ReactionTest {
 
     private TextView text;
-    private Button button;
     private Context context;
-
+    // For reaction time measuring
     private long startTime;
     private long reactionTime;
     private boolean timerStarted = false;
     // For statistics saving
     private static final String FILENAME = "stats.sav";
-    Stats stats = new Stats();
+    Statistics stats = new Statistics();
 
     static final int minTime = 10;
     static final int maxTime = 2000;
 
+    // For randomly starting the timer
     Handler timerH = new Handler();
     Runnable timerR = new Runnable() {
 
@@ -61,13 +61,13 @@ public class ReactionTest {
         }
     };
 
+    // Constructors
     public ReactionTest(Context context) {
         this.context = context;
     }
 
-    public ReactionTest(View text, View button, Context context) {
+    public ReactionTest(View text, Context context) {
         this.text = (TextView) text;
-        //this.button = (Button) button;
         this.context = context;
     }
 
@@ -105,7 +105,7 @@ public class ReactionTest {
         return reactionTime;
     }
 
-    public Stats getStats() {
+    public Statistics getStats() {
         loadFromFile();
         return stats;
     }
@@ -116,21 +116,21 @@ public class ReactionTest {
         loadFromFile();
     }
 
-    // From CMPUT 301 Lab 3
+    // From CMPUT 301 Lab 3. Used and modified with permission from J. Campbell
+    // https://github.com/joshua2ua/lonelyTwitter
     public void loadFromFile() {
         try {
             FileInputStream fis = context.openFileInput(FILENAME);
             BufferedReader in = new BufferedReader(new InputStreamReader(fis));
             Gson gson = new Gson();
-            stats = gson.fromJson(in, Stats.class);
+            stats = gson.fromJson(in, Statistics.class);
         } catch (FileNotFoundException e) {
-            stats = new Stats();
-        } /* catch (IOException e) {
-            throw new RuntimeException(e);
-        } */
+            stats = new Statistics();
+        }
     }
 
-    // From CMPUT 301 Lab 3
+    // From CMPUT 301 Lab 3. Used and modified with permission from J. Campbell
+    // https://github.com/joshua2ua/lonelyTwitter
     public void saveInFile() {
         try {
             FileOutputStream fos = context.openFileOutput(FILENAME, 0);

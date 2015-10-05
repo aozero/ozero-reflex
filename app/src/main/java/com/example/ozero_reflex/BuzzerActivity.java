@@ -21,6 +21,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
+// The UI for the buzzer mode. Handles dialogs and lets buttons call things from Buzzer
 public class BuzzerActivity extends AppCompatActivity {
 
     private Buzzer buzzer = new Buzzer(BuzzerActivity.this);
@@ -28,15 +29,18 @@ public class BuzzerActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // Layout set by SelectPlayersActivity depending on the amount of players chosen
         Bundle parameters = getIntent().getExtras();
         setContentView(parameters.getInt("layout"));
         int players = parameters.getInt("players");
+        // Amount of players is passed to Buzzer for use there too
         buzzer.setPlayers(players);
 
         // Load statistics file
         buzzer.loadFromFile();
     }
 
+    // Creates a dialog to bring up a message and reset buttonWasTapped for more buzzer mode rounds
     private void buildMessageDialog(String message) {
         AlertDialog.Builder builder = new AlertDialog.Builder(BuzzerActivity.this);
         builder.setCancelable(false);
@@ -52,7 +56,10 @@ public class BuzzerActivity extends AppCompatActivity {
         builder.show();
     }
 
+    // The following four methods are called when the respective player buttons are tapped.
     public void playerOneTap(View v) {
+        // buttonTap returns true if this was the first button tapped. If it does, announce it
+        // with a dialog
         if(buzzer.buttonTap(0)) {
             buildMessageDialog("Player 1 tapped first!");
         }

@@ -20,11 +20,12 @@ import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Adapter;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 
+// The UI to display the statistics collected by the reaction/buzzer modes. Allows emailing and
+// clearing the statistics
 public class StatisticsActivity extends AppCompatActivity {
 
     Button emailButton;
@@ -51,16 +52,18 @@ public class StatisticsActivity extends AppCompatActivity {
     }
 
     private void initializeListeners() {
+        // Send an email with the stats in clean, human-readable form in the body
         emailButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent intent = new Intent(Intent.ACTION_SENDTO);
                 intent.setData(Uri.parse("mailto:ozero@ualberta.ca"));
-                intent.putExtra(Intent.EXTRA_SUBJECT, "Reflex Stats");
+                intent.putExtra(Intent.EXTRA_SUBJECT, "Reflex Statistics");
                 intent.putExtra(Intent.EXTRA_TEXT, test.getStats().getStatsAsString());
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(Intent.createChooser(intent, "Send Email"));
             }
         });
+        // Clear the stats and update the adapter
         clearButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 test.clearStats();

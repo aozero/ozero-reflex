@@ -20,7 +20,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
-
+// The main activity which is started when the app is launched, and acts as a main menu of sorts
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -29,16 +29,19 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
     }
 
+    // Start reaction timer mode
     public void startReactionTimer(View view) {
         Intent intent = new Intent(this, ReactionTestActivity.class);
         startActivity(intent);
     }
 
+    // Start the player selection activity
     public void startSelectPlayers(View view) {
         Intent intent = new Intent(this, SelectPlayersActivity.class);
         startActivity(intent);
     }
 
+    // Start the stats activity
     public void startStatistics(View view) {
         Intent intent = new Intent(this, StatisticsActivity.class);
         startActivity(intent);
