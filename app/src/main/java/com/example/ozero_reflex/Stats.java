@@ -6,57 +6,67 @@ import java.util.Collections;
 public class Stats {
 
     private ArrayList<Integer> reactionStatsList = new ArrayList<>();
-    private ArrayList<Integer> twoPlayerStatsList = new ArrayList<>();
-    private ArrayList<Integer> threePlayerStatsList = new ArrayList<>();
-    private ArrayList<Integer> fourPlayerStatsList = new ArrayList<>();
+    private ArrayList<Integer> buzzerStatsList = new ArrayList<>();
 
     // Add a reaction statistic to the list
     public void addReactionStat(Integer stat) {
         reactionStatsList.add(stat);
     }
 
-    // Add two, three, and four player stat to their respective lists
-    // TODO? Merge buzzer stats into one list
-    public void addTwoPlayerStat(Integer index) {
+    // Add two, three, and four player stats
+    public void addBuzzerStat(Integer index, Integer players) {
+        int start = 0;
+
+        switch(players) {
+            case 2:
+                start = 0;
+                break;
+            case 3:
+                start = 2;
+                break;
+            case 4:
+                start = 5;
+                break;
+        }
         try {
-            twoPlayerStatsList.set(index, twoPlayerStatsList.get(index)+1);
+            buzzerStatsList.set(start+index, buzzerStatsList.get(start+index)+1);
         } catch (IndexOutOfBoundsException e) {
             // Initialize default values, then increment the one specified
-            twoPlayerStatsList.add(0);
-            twoPlayerStatsList.add(0);
-            twoPlayerStatsList.set(index, twoPlayerStatsList.get(index) + 1);
+            for (int i = 0; i < 9; i++) {
+                buzzerStatsList.add(0);
+            }
+            buzzerStatsList.set(start+index, buzzerStatsList.get(start+index)+1);
         }
     }
 
+    /*
     public void addThreePlayerStat(Integer index) {
         try {
-            threePlayerStatsList.set(index, threePlayerStatsList.get(index)+1);
+            buzzerStatsList.set(index+2, buzzerStatsList.get(index+2)+1);
         } catch (IndexOutOfBoundsException e) {
             // Initialize default values, then increment the one specified
-            for (int i = 0; i < 3; i++) {
-                threePlayerStatsList.add(0);
+            for (int i = 0; i < 9; i++) {
+                buzzerStatsList.add(0);
             }
-            threePlayerStatsList.set(index, threePlayerStatsList.get(index) + 1);
+            buzzerStatsList.set(index+2, buzzerStatsList.get(index+2) + 1);
         }
     }
 
     public void addFourPlayerStat(Integer index) {
         try {
-            fourPlayerStatsList.set(index, fourPlayerStatsList.get(index)+1);
+            buzzerStatsList.set(index+5, buzzerStatsList.get(index+5)+1);
         } catch (IndexOutOfBoundsException e) {
             // Initialize default values, then increment the one specified
-            for (int i = 0; i < 4; i++) {
-                fourPlayerStatsList.add(0);
+            for (int i = 0; i < 9; i++) {
+                buzzerStatsList.add(0);
             }
-            fourPlayerStatsList.set(index, fourPlayerStatsList.get(index) + 1);
+            buzzerStatsList.set(index+5, buzzerStatsList.get(index+5)+1);
         }
-    }
+    }*/
 
     public void clearStats() {
         reactionStatsList.clear();
-        twoPlayerStatsList.clear();
-        threePlayerStatsList.clear();
-        fourPlayerStatsList.clear();
+        buzzerStatsList.clear();
     }
 
     public ArrayList<Integer> getLastAmount(Integer amtToGet){
@@ -143,33 +153,33 @@ public class Stats {
     }
 
     private String twoPlayerStats() {
-        if (twoPlayerStatsList.isEmpty()) {
+        if (buzzerStatsList.isEmpty()) {
             return("Two Player Mode" +
                     "\n\tPlayer One: --" +
                     "\n\tPlayer Two: --\n");
         } else {
             return ("Two Player Mode" +
-                    "\n\tPlayer One: " + twoPlayerStatsList.get(0) +
-                    "\n\tPlayer Two: " + twoPlayerStatsList.get(1) + "\n");
+                    "\n\tPlayer One: " + buzzerStatsList.get(0) +
+                    "\n\tPlayer Two: " + buzzerStatsList.get(1) + "\n");
         }
     }
 
     private String threePlayerStats() {
-        if (threePlayerStatsList.isEmpty()) {
+        if (buzzerStatsList.isEmpty()) {
             return("Three Player Mode" +
                     "\n\tPlayer One: --" +
                     "\n\tPlayer Two: --" +
                     "\n\tPlayer Three: --\n");
         } else {
             return ("Three Player Mode" +
-                    "\n\tPlayer One: " + threePlayerStatsList.get(0) +
-                    "\n\tPlayer Two: " + threePlayerStatsList.get(1) +
-                    "\n\tPlayer Three: " + threePlayerStatsList.get(2) + "\n");
+                    "\n\tPlayer One: " + buzzerStatsList.get(2) +
+                    "\n\tPlayer Two: " + buzzerStatsList.get(3) +
+                    "\n\tPlayer Three: " + buzzerStatsList.get(4) + "\n");
         }
     }
 
     private String fourPlayerStats() {
-        if(fourPlayerStatsList.isEmpty()) {
+        if(buzzerStatsList.isEmpty()) {
             return("Four Player Mode" +
                     "\n\tPlayer One: --" +
                     "\n\tPlayer Two: --" +
@@ -177,10 +187,10 @@ public class Stats {
                     "\n\tPlayer Four: --\n");
         } else {
             return ("Four Player Mode" +
-                    "\n\tPlayer One: " + fourPlayerStatsList.get(0) +
-                    "\n\tPlayer Two: " + fourPlayerStatsList.get(1) +
-                    "\n\tPlayer Three: " + fourPlayerStatsList.get(2) +
-                    "\n\tPlayer Four: " + fourPlayerStatsList.get(3) + "\n");
+                    "\n\tPlayer One: " + buzzerStatsList.get(5) +
+                    "\n\tPlayer Two: " + buzzerStatsList.get(6) +
+                    "\n\tPlayer Three: " + buzzerStatsList.get(7) +
+                    "\n\tPlayer Four: " + buzzerStatsList.get(8) + "\n");
         }
     }
 
@@ -200,7 +210,7 @@ public class Stats {
     }
 
     public String getStatsAsString() {
-        String string = new String();
+        String string;
         string = "REACTION TIMES\n\n" + minReactionStats() + maxReactionStats() +
                 avgReactionStats() + medReactionStats() + "\nBUZZER MODE WINS\n\n" +
                 twoPlayerStats() + threePlayerStats() + fourPlayerStats();

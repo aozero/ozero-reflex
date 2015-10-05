@@ -30,7 +30,7 @@ public class ReactionTest {
 
     private long startTime;
     private long reactionTime;
-    public boolean timerStarted = false;
+    private boolean timerStarted = false;
     // For statistics saving
     private static final String FILENAME = "stats.sav";
     Stats stats = new Stats();
@@ -38,9 +38,6 @@ public class ReactionTest {
     static final int minTime = 10;
     static final int maxTime = 2000;
 
-    // Handlers and Runnables:
-    // https://stackoverflow.com/questions/4597690/android-timer-how 2015-09-27
-    // User: Dave.B
     Handler timerH = new Handler();
     Runnable timerR = new Runnable() {
 
@@ -58,7 +55,7 @@ public class ReactionTest {
 
     public ReactionTest(View text, View button, Context context) {
         this.text = (TextView) text;
-        this.button = (Button) button;
+        //this.button = (Button) button;
         this.context = context;
     }
 
@@ -117,7 +114,6 @@ public class ReactionTest {
         } catch (FileNotFoundException e) {
             stats = new Stats();
         } /* catch (IOException e) {
-            // TODO Auto-generated catch block
             throw new RuntimeException(e);
         } */
     }
@@ -132,10 +128,8 @@ public class ReactionTest {
             out.flush();
             fos.close();
         } catch (FileNotFoundException e) {
-            // TODO Auto-generated catch block
             throw new RuntimeException(e);
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             throw new RuntimeException(e);
         }
     }

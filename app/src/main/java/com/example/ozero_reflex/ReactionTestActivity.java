@@ -8,7 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-public class OnePlayerActivity extends AppCompatActivity {
+public class ReactionTestActivity extends AppCompatActivity {
 
     // To assist with onPause() and onResume()
     private boolean wasPaused = false;
@@ -21,10 +21,10 @@ public class OnePlayerActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_one_player);
+        setContentView(R.layout.activity_reaction_test);
         text = (TextView) findViewById(R.id.reactionText);
         button = (Button) findViewById(R.id.reactionButton);
-        reactionTest = new ReactionTest(text, button, OnePlayerActivity.this);
+        reactionTest = new ReactionTest(text, button, ReactionTestActivity.this);
         // Loads the stats save file
         reactionTest.loadFromFile();
         // Bring up the instructions
@@ -56,7 +56,7 @@ public class OnePlayerActivity extends AppCompatActivity {
 
     private void buildMessageDialog(String message) {
         messageDismissed = false;
-        AlertDialog.Builder builder = new AlertDialog.Builder(OnePlayerActivity.this);
+        AlertDialog.Builder builder = new AlertDialog.Builder(ReactionTestActivity.this);
         builder.setCancelable(false);
         builder.setMessage(message);
         builder.setPositiveButton(R.string.dialog_ok,
