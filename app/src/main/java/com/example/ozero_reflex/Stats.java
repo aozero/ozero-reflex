@@ -186,16 +186,24 @@ public class Stats {
 
     public ArrayList<String> getStatsStrings() {
         ArrayList<String> strings = new ArrayList<>();
-        strings.add("\t\t\tREACTION TIMES");
+        strings.add("REACTION TIMES");
         strings.add(minReactionStats());
         strings.add(maxReactionStats());
         strings.add(avgReactionStats());
         strings.add(medReactionStats());
-        strings.add("\t\t\tBUZZER MODE WINS");
+        strings.add("BUZZER MODE WINS");
         strings.add(twoPlayerStats());
         strings.add(threePlayerStats());
         strings.add(fourPlayerStats());
 
         return strings;
+    }
+
+    public String getStatsAsString() {
+        String string = new String();
+        string = "REACTION TIMES\n\n" + minReactionStats() + maxReactionStats() +
+                avgReactionStats() + medReactionStats() + "\nBUZZER MODE WINS\n\n" +
+                twoPlayerStats() + threePlayerStats() + fourPlayerStats();
+        return string;
     }
 }

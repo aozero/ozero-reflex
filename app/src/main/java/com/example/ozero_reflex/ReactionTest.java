@@ -104,6 +104,7 @@ public class ReactionTest {
     public void clearStats() {
         stats.clearStats();
         saveInFile();
+        loadFromFile();
     }
 
     // From CMPUT 301 Lab 3
