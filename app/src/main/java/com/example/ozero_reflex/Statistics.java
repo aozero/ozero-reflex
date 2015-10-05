@@ -64,7 +64,7 @@ public class Statistics {
     }
 
     // Gets the last specified amount of reaction stats to be min'd, max'd, etc.
-    public ArrayList<Integer> getLastAmount(Integer amtToGet){
+    private ArrayList<Integer> getLastAmount(Integer amtToGet){
         if(reactionStatsList.size() < amtToGet){
             amtToGet = reactionStatsList.size();
         }
@@ -75,7 +75,7 @@ public class Statistics {
         return lastAmt;
     }
 
-    public Integer getAverage(ArrayList<Integer> list) {
+    private Integer getAverage(ArrayList<Integer> list) {
         Integer sum = 0;
         for (Integer i = 0; i < list.size(); i++) {
             sum += list.get(i);
@@ -83,7 +83,7 @@ public class Statistics {
         return sum / list.size();
     }
 
-    public Integer getMedian(ArrayList<Integer> list) {
+    private Integer getMedian(ArrayList<Integer> list) {
         if(list.size() % 2 == 0) {
             return((list.get(list.size()/2) + (list.get(list.size()-1))) / 2);
         } else {

@@ -28,12 +28,12 @@ import android.widget.ListView;
 // clearing the statistics
 public class StatisticsActivity extends AppCompatActivity {
 
-    Button emailButton;
-    Button clearButton;
+    private Button emailButton;
+    private Button clearButton;
 
-    ReactionTest test;
-    ArrayAdapter<String> statsAdapter;
-    ListView listView;
+    private ReactionTest test;
+    private ArrayAdapter<String> statsAdapter;
+    private ListView listView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

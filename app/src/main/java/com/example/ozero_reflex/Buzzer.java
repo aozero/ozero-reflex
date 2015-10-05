@@ -38,7 +38,7 @@ public class Buzzer {
 
     // For statistics saving
     private static final String FILENAME = "stats.sav";
-    Statistics stats = new Statistics();
+    private Statistics stats = new Statistics();
 
     private Context context;
 

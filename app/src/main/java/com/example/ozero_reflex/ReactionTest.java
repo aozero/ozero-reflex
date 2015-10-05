@@ -44,14 +44,14 @@ public class ReactionTest {
     private boolean timerStarted = false;
     // For statistics saving
     private static final String FILENAME = "stats.sav";
-    Statistics stats = new Statistics();
+    private Statistics stats = new Statistics();
 
-    static final int minTime = 10;
-    static final int maxTime = 2000;
+    private static final int minTime = 10;
+    private static final int maxTime = 2000;
 
     // For randomly starting the timer
-    Handler timerH = new Handler();
-    Runnable timerR = new Runnable() {
+    private Handler timerH = new Handler();
+    private Runnable timerR = new Runnable() {
 
         @Override
         public void run() {
