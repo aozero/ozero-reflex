@@ -1,7 +1,13 @@
 # ozero-reflex
 CMPUT 301 Assignment 1 - A Reaction Time Testing and Gameshow Buzzer App
 
-Demonstration video located under the vid/ directory.
+Demonstration video located in the vid/ directory.
+
+A working apk file may be found in the bin/ directory.
+
+Source may be found in the app/src/ directory.
+
+UML may be found in the doc/ directory.
 
 # License
 Copyright 2015 Alexander Ozero
